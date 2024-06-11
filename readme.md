@@ -9,7 +9,7 @@
 ## Infrastructure
 ```mermaid
 flowchart TD
- subgraph Container["Docker Container"]
+ subgraph Container["Container"]
         PSQL[("PostgreSQL Database")]
   end
  subgraph WSL["Windows-Subsystem for Linux (WSL)"]
