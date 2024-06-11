@@ -1,7 +1,10 @@
-## Vorraussetzungen
+### Vorraussetzungen
 - Windows 10, Version 2004 und höher
-- Docker Desktop
-- PG
+- [Docker Desktop (Windows)](https://www.docker.com/products/docker-desktop/)
+- [PG-Admin(Windows)](https://www.pgadmin.org/)
+
+### Nice to have
+- [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=de-de&gl=DE)
 
 ## Infrastructure
 ```mermaid
@@ -26,7 +29,7 @@ flowchart TD
 ```
 - **Windows:** Entwicklungsumgebung, Verwaltung von WSL2
 - **WSL2:** Natives entwickeln auf Linux mit allen seinen Vorteilen.
-- **Docker:**  Eine Anwendung mit allen ihren Abhängigkeiten in einem "Container". Bis auf die Docker Engine unabhängig Lauffähig. Somit ist es deutlich leichter komplexe Systeme mit wenigen Zeilen Code zum laufen zu bringen.
+- **Docker:**  Eine Anwendung mit allen ihren Abhängigkeiten in einem "Container". Abgsehen von der "Docker Engine" unabhängig lauffähig. Somit ist es deutlich leichter komplexe Systeme mit wenigen Zeilen Code zum laufen zu bringen.
 
 ## Docker Container Starten
 ### Code
