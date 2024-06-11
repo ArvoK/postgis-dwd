@@ -1,7 +1,8 @@
 ### Vorraussetzungen
 - Windows 10, Version 2004 und höher
+- QGIS
 - [Docker Desktop (Windows)](https://www.docker.com/products/docker-desktop/)
-- [PG-Admin(Windows)](https://www.pgadmin.org/)
+- [pgAdmin(Windows)](https://www.pgadmin.org/)
 
 ### Nice to have
 - [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=de-de&gl=DE)
@@ -34,10 +35,14 @@ flowchart TD
 ## Docker Container Starten
 ### Code
 ```bash
+docker volume create gisdata
+```
+```bash
 sudo docker run -d \
 --name=gis_database \
 -p 5433:5432 \
 -e POSTGRES_PASSWORD=gis_database_pw \
+-v gisdata:/var/lib/postgresql/data \
 postgis/postgis:16-3.4
 ```
 
@@ -65,9 +70,9 @@ Die Option setzt eine Umgebungsvariable im Container. In diesem Fall wird die Um
 Dies ist das Image, das zum Ausführen des Containers verwendet wird. Das Image stammt vom Repository postgis und hat die Tag-Version 16-3.4. Dies bedeutet, dass das Image Postgres 16.3 mit PostGIS-Erweiterungen enthält.
 
 
-## ogr_fdw Installieren
+## ogr_fdw/pgadgent Installieren
 
-### Code
+### Container
 **1. Container id abfragen:**
 ```bash
 sudo docker ps -aqf "name=gis_database"
@@ -79,5 +84,34 @@ docker exec -it .... sh
 **3. ogr-fdw im Container installieren:**
 ```bash
 apt-get update && apt-get install -y --no-install-recommends postgresql-16-ogr-fdw
+  
 apt-get update && apt-get install pgagent
+```
+
+### Datenbank
+Vorhandene Erweiterungen überprüfen:
+```postgresql
+SELECT * FROM pg_extension;
+```
+Erweiterungen in Datenbank installieren:
+```postgresql
+CREATE EXTENSION pgagent;
+CREATE EXTENSION ogr_fdw;
+```
+
+Neues Schema anlegen:
+```postgresql
+CREATE SCHEMA datenbestand;
+```
+Daten Pipeline
+```mermaid
+flowchart TB
+    A{{"dwd_wfs"}} -- Import Foreign Schema --> C("OBS_DEU_P1Y_SD")
+    B{{"gdz_wfs"}} -- Import Foreign Schema --> D("vg250-ew_vg250_lan")
+    C -- Datenaufbereitung ---> A2("dwd_sonnenstunden_jahresmittel")
+    D -- Datenaufbereitung ---> B2("brd_bundeslaender")
+    A2 -- geom --- E[\"Räumliche Verknüpfung"/]
+    B2 -- geom --- E
+
+    E --> n1["sonnenstunden_bundeslaender"]
 ```
