@@ -9,19 +9,19 @@ CREATE SERVER gdz_wfs
 -- https://sgx.geodatenzentrum.de/wfs_vg250-ew?REQUEST=GetCapabilities&SERVICE=WFS
 
 
-IMPORT FOREIGN SCHEMA "vg250-ew_vg250_lan" FROM SERVER gdz_wfs INTO datenbestand;
+IMPORT FOREIGN SCHEMA "vg250-ew_vg250_lan" FROM SERVER gdz_wfs INTO daten;
 
-DROP MATERIALIZED VIEW IF EXISTS datenbestand."brd_bundeslaender";
+DROP MATERIALIZED VIEW IF EXISTS daten."brd_bundeslaender";
 
 
-CREATE MATERIALIZED VIEW datenbestand."brd_bundeslaender"
+CREATE MATERIALIZED VIEW daten."brd_bundeslaender" AS
 (
     SELECT
 		gml_id AS id,
 		gen AS "Name",
-		ST_MAKEVALID(ST_TRANSFORM(geom, 25832)) AS geom
-	FROM datenbestand."vg250_ew_vg250_lan"
+		ST_MAKEVALID(ST_CURVETOLINE(ST_TRANSFORM(geom, 25832))) AS geom
+	FROM daten."vg250_ew_vg250_lan"
 );
 
 CREATE UNIQUE INDEX idx_brd_bundeslaender_id
-  ON datenbestand."brd_bundeslaender" (id);
+  ON daten."brd_bundeslaender" (id);

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  gis_database:
+    image: postgis/postgis:16-3.4
+    container_name: gis_database
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: gis_database_pw
+    volumes:
+      - gisdata:/var/lib/postgresql/data
+    command: bash -c "apt-get update && apt-get install -y --no-install-recommends postgresql-16-ogr-fdw && apt-get update && apt-get install -y pgagent && docker-entrypoint.sh postgres"
+
+volumes:
+  gisdata:
+    name: gisdata

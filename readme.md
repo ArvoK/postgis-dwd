@@ -101,7 +101,7 @@ CREATE EXTENSION ogr_fdw;
 
 Neues Schema anlegen:
 ```postgresql
-CREATE SCHEMA datenbestand;
+CREATE SCHEMA daten;
 ```
 Daten Pipeline
 ```mermaid
