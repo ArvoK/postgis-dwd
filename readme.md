@@ -112,6 +112,5 @@ flowchart TB
     D -- Datenaufbereitung ---> B2("brd_bundeslaender")
     A2 -- geom --- E[\"Räumliche Verknüpfung"/]
     B2 -- geom --- E
-
-    E --> n1["sonnenstunden_bundeslaender"]
+    E --> n1["brd_sonnenstunden_jahresmittel"]
 ```
