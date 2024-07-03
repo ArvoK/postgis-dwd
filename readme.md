@@ -70,9 +70,13 @@ Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausf
 
 ## Verwendung
 
-1. Ersetze `gis_database_pw` durch ein sicheres Passwort.
-2. Starte den Container mit `docker compose up -d`.
-3. Verbinde dich mit `psql` oder einem anderen PostgreSQL-Client zu `localhost:5433` (oder dem entsprechenden Port, wenn du ihn geändert hast).
+1. Starte den Container mit `docker compose up -d`.
+3. WSL2 IP-Adresse herausfinden: `wsl hostname -I `.
+4. Deine WSL2 IP-Adresse einfügen:
+![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/6c4a64f2-6c66-4362-969e-d3f9ebcd0eb5)
+5. Passwort eingeben(`gis_database_pw`)
+![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/c028d54e-e641-4dbf-9b58-12399e804e46)
+
 
 
 # Datenbank
