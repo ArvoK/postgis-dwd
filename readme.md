@@ -1,4 +1,4 @@
-## Infrastructure
+# Infrastructure
 ```mermaid
 flowchart TD
  subgraph Container["Container"]
