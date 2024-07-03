@@ -74,18 +74,18 @@ Die Docker Compose-Datei [docker-compose.yml](https://github.com/ArvoK/postgis-d
 * **Name:** `gisdata`
    - Definiert ein benanntes Volume, um die PostgreSQL-Daten persistent zu speichern.
 
-## Verwendung
-
-1. Starte den Container mit `docker compose up -d`.
-2. WSL2 IP-Adresse herausfinden: `wsl hostname -I `.  
-3. IP-Adresse ersetzen  
-![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/6c4a64f2-6c66-4362-969e-d3f9ebcd0eb5)  
-4. Passwort eingeben(`gis_database_pw`)  
-![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/c028d54e-e641-4dbf-9b58-12399e804e46)  
-
 
 # 03 Datenbank
-## Query Tool starten:  
+## Verwendung
+
+### 1. Starte den Container mit `docker compose up -d`.
+### 2. WSL2 IP-Adresse herausfinden: `wsl hostname -I ` (in Windows PowerShell oder cmd)  
+### 3. IP-Adresse ersetzen  
+![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/6c4a64f2-6c66-4362-969e-d3f9ebcd0eb5)  
+### 4. Passwort eingeben(`gis_database_pw`)  
+![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/c028d54e-e641-4dbf-9b58-12399e804e46)
+
+### 5. Query Tool starten:  
 ![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/23acd1c1-0b90-4fb9-850f-0a49759e1496)
 
 ## Vorhandene Erweiterungen überprüfen:
