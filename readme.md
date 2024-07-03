@@ -75,22 +75,22 @@ Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausf
 3. Verbinde dich mit `psql` oder einem anderen PostgreSQL-Client zu `localhost:5433` (oder dem entsprechenden Port, wenn du ihn geändert hast).
 
 
-### Datenbank
-Vorhandene Erweiterungen überprüfen:
+# Datenbank
+##Vorhandene Erweiterungen überprüfen:
 ```postgresql
 SELECT * FROM pg_extension;
 ```
-Erweiterungen in Datenbank installieren:
+##Erweiterungen in Datenbank installieren:
 ```postgresql
 CREATE EXTENSION pgagent;
 CREATE EXTENSION ogr_fdw;
 ```
 
-Neues Schema anlegen:
+##Neues Schema anlegen:
 ```postgresql
 CREATE SCHEMA daten;
 ```
-Daten Pipeline
+##Daten Pipeline
 ```mermaid
 flowchart TB
     A{{"dwd_wfs"}} -- Import Foreign Schema --> C("OBS_DEU_P1Y_SD")
