@@ -25,9 +25,9 @@ flowchart TD
     style WSL fill:#616161,stroke:#000000
     style Windows color:#FFFFFF,fill:#424242
 ```
-- **Windows:** Entwicklungsumgebung, Verwaltung von WSL2
-- **WSL2:** Natives entwickeln auf Linux mit allen seinen Vorteilen.
-- **Docker:**  Eine Anwendung mit allen ihren Abhängigkeiten in einem "Container". Abgsehen von der "Docker Engine" unabhängig lauffähig. Somit ist es deutlich leichter komplexe Systeme mit wenigen Zeilen Code zum laufen zu bringen.
+## **Windows:** Entwicklungsumgebung, Verwaltung von WSL2
+## **WSL2:** Natives entwickeln auf Linux mit allen seinen Vorteilen.
+## **Docker:**  Eine Anwendung mit allen ihren Abhängigkeiten in einem "Container". Abgsehen von der "Docker Engine" unabhängig lauffähig. Somit ist es deutlich leichter komplexe Systeme mit wenigen Zeilen Code zum laufen zu bringen.
 
 # 02 [Docker Compose](https://github.com/ArvoK/postgis-dwd/blob/main/docker-compose.yml)
 
