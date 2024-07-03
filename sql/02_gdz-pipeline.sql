@@ -1,3 +1,4 @@
+--01
 CREATE SERVER gdz_wfs
     FOREIGN DATA WRAPPER ogr_fdw
     OPTIONS (
@@ -5,15 +6,15 @@ CREATE SERVER gdz_wfs
         format 'WFS'
     );
 
+
+--02
 -- Link zu den GetCapabilities
 -- https://sgx.geodatenzentrum.de/wfs_vg250-ew?REQUEST=GetCapabilities&SERVICE=WFS
-
-
 IMPORT FOREIGN SCHEMA "vg250-ew_vg250_lan" FROM SERVER gdz_wfs INTO daten;
 
+
+--03
 DROP MATERIALIZED VIEW IF EXISTS daten."brd_bundeslaender";
-
-
 CREATE MATERIALIZED VIEW daten."brd_bundeslaender" AS
 (
     SELECT
@@ -23,5 +24,7 @@ CREATE MATERIALIZED VIEW daten."brd_bundeslaender" AS
 	FROM daten."vg250_ew_vg250_lan"
 );
 
+
+--04
 CREATE UNIQUE INDEX idx_brd_bundeslaender_id
   ON daten."brd_bundeslaender" (id);

@@ -1,4 +1,10 @@
-# Infrastruktur
+# Gliederung
+### 01 [Infrastruktur](#01-infrastruktur)
+### 02 [Docker Compose](#02-docker-compose)
+### 03 [Datenbank](#03-datenbank)
+
+
+# 01 Infrastruktur
 ```mermaid
 flowchart TD
  subgraph Container["Container"]
@@ -23,9 +29,9 @@ flowchart TD
 - **WSL2:** Natives entwickeln auf Linux mit allen seinen Vorteilen.
 - **Docker:**  Eine Anwendung mit allen ihren Abhängigkeiten in einem "Container". Abgsehen von der "Docker Engine" unabhängig lauffähig. Somit ist es deutlich leichter komplexe Systeme mit wenigen Zeilen Code zum laufen zu bringen.
 
-# Docker Compose für PostGIS mit pgAgent
+# 02 [Docker Compose](https://github.com/ArvoK/postgis-dwd/blob/main/docker-compose.yml)
 
-Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausführung geplanter Aufgaben in der Datenbank.
+Die Docker Compose-Datei [docker-compose.yml](https://github.com/ArvoK/postgis-dwd/blob/main/docker-compose.yml) definiert ein PostGIS-Setup mit pgAgent für die Ausführung geplanter Aufgaben in der Datenbank.
 
 ## Services
 
@@ -78,8 +84,7 @@ Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausf
 ![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/c028d54e-e641-4dbf-9b58-12399e804e46)  
 
 
-
-# Datenbank
+# 03 Datenbank
 ## Query Tool starten:  
 ![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/23acd1c1-0b90-4fb9-850f-0a49759e1496)
 
@@ -97,7 +102,10 @@ CREATE EXTENSION ogr_fdw;
 ```postgresql
 CREATE SCHEMA daten;
 ```
-## Daten Pipeline
+
+## Daten Importieren
+
+### Schematische Darstellung
 ```mermaid
 flowchart TB
     A{{"dwd_wfs"}} -- Import Foreign Schema --> C("OBS_DEU_P1Y_SD")
@@ -108,3 +116,5 @@ flowchart TB
     B2 -- geom --- E
     E --> n1["brd_sonnenstunden_jahresmittel"]
 ```
+
+### Skripte aus dem sql Ordner geordnet ausführen

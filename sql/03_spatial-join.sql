@@ -1,5 +1,6 @@
-DROP MATERIALIZED VIEW IF EXISTS daten."brd_sonnenstunden_jahresmittel";
 
+--01
+DROP MATERIALIZED VIEW IF EXISTS daten."brd_sonnenstunden_jahresmittel";
 CREATE MATERIALIZED VIEW daten."brd_sonnenstunden_jahresmittel" AS
 (
     SELECT
@@ -19,5 +20,7 @@ CREATE MATERIALIZED VIEW daten."brd_sonnenstunden_jahresmittel" AS
         bl."Name", dwd_date."Datum",bl."geom",CONCAT(dwd_date."id",';',bl."id")
 );
 
+
+--02
 CREATE UNIQUE INDEX idx_brd_sonnenstunden_jahresmittel_id
   ON daten."brd_sonnenstunden_jahresmittel" (id);
