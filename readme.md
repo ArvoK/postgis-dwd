@@ -76,21 +76,21 @@ Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausf
 
 
 # Datenbank
-##Vorhandene Erweiterungen überprüfen:
+## Vorhandene Erweiterungen überprüfen:
 ```postgresql
 SELECT * FROM pg_extension;
 ```
-##Erweiterungen in Datenbank installieren:
+## Erweiterungen in Datenbank installieren:
 ```postgresql
 CREATE EXTENSION pgagent;
 CREATE EXTENSION ogr_fdw;
 ```
 
-##Neues Schema anlegen:
+## Neues Schema anlegen:
 ```postgresql
 CREATE SCHEMA daten;
 ```
-##Daten Pipeline
+## Daten Pipeline
 ```mermaid
 flowchart TB
     A{{"dwd_wfs"}} -- Import Foreign Schema --> C("OBS_DEU_P1Y_SD")
