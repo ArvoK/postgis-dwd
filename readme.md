@@ -1,13 +1,4 @@
-### Vorraussetzungen
-- Windows 10, Version 2004 und höher
-- QGIS
-- [Docker Desktop (Windows)](https://www.docker.com/products/docker-desktop/)
-- [pgAdmin(Windows)](https://www.pgadmin.org/)
-
-### Nice to have
-- [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=de-de&gl=DE)
-
-## Infrastructure
+# Infrastruktur
 ```mermaid
 flowchart TD
  subgraph Container["Container"]
@@ -32,78 +23,78 @@ flowchart TD
 - **WSL2:** Natives entwickeln auf Linux mit allen seinen Vorteilen.
 - **Docker:**  Eine Anwendung mit allen ihren Abhängigkeiten in einem "Container". Abgsehen von der "Docker Engine" unabhängig lauffähig. Somit ist es deutlich leichter komplexe Systeme mit wenigen Zeilen Code zum laufen zu bringen.
 
-## Docker Container Starten
-### Code
-```bash
-docker volume create gisdata
-```
-```bash
-sudo docker run -d \
---name=gis_database \
--p 5433:5432 \
--e POSTGRES_PASSWORD=gis_database_pw \
--v gisdata:/var/lib/postgresql/data \
-postgis/postgis:16-3.4
-```
+# Docker Compose für PostGIS mit pgAgent
 
-### Beschreibung
+Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausführung geplanter Aufgaben in der Datenbank.
 
-1. **sudo:**  
-sudo steht für "Superuser Do". Es wird verwendet, um den Befehl mit "Admin-Berechtigungen" auszuführen.
+## Services
 
-2. **docker run:**  
-Dies ist der grundlegende Befehl zum Ausführen eines Docker-Images.
+### `gis_database`
 
-3. **-d:**  
-Der Container läuft auch wenn die Konsole geschlossen wird.
+* **Image:** `postgis/postgis:16-3.4`
+   - Verwendet das offizielle PostGIS Docker-Image, das PostgreSQL mit PostGIS-Erweiterungen für räumliche Daten kombiniert.
+   - Die Version `16-3.4` bezieht sich auf PostgreSQL 16 und PostGIS 3.4.
 
-4. **--name=gis_database:**  
-Die Option gibt dem Container einen Namen.
+* **Container Name:** `gis_database`
+   - Benennt den Container, um ihn leichter identifizieren zu können.
 
-5. **-p 5433:5432:**  
-Es wird Port 5433 auf dem Host-System mit Port 5432 im Container verbunden. Dies bedeutet, dass man  über den Port 5433 auf den Postgres-Server im Container zugreifen kann.
+* **Ports:**
+   - `5433:5432`
+      - Leitet Port 5433 auf dem Host-System zu Port 5432 im Container weiter.
+      - PostgreSQL läuft standardmäßig auf Port 5432.
 
-6. **-e POSTGRES_PASSWORD=gis_database_pw:**
-Die Option setzt eine Umgebungsvariable im Container. In diesem Fall wird die Umgebungsvariable POSTGRES_PASSWORD auf den Wert 'gis_database_pw' gesetzt. Dies ist das Passwort, mit dem wir uns bei der Postgres-Datenbank im Container anmelden können.
+* **Environment:**
+   - `POSTGRES_PASSWORD: gis_database_pw`
+      - Setzt das Passwort für den PostgreSQL-Benutzer `postgres`.
+      - Ersetze `gis_database_pw` durch ein sicheres Passwort.
 
-7. **postgis/postgis:16-3.4:**  
-Dies ist das Image, das zum Ausführen des Containers verwendet wird. Das Image stammt vom Repository postgis und hat die Tag-Version 16-3.4. Dies bedeutet, dass das Image Postgres 16.3 mit PostGIS-Erweiterungen enthält.
+* **Volumes:**
+   - `gisdata:/var/lib/postgresql/data`
+      - Speichert die PostgreSQL-Daten persistent im benannten Volume `gisdata`.
+      - Dadurch bleiben die Daten auch nach dem Stoppen des Containers erhalten.
+
+* **Command:**
+   - `bash -c "apt-get update && apt-get install -y --no-install-recommends postgresql-16-ogr-fdw && apt-get update && apt-get install -y pgagent && docker-entrypoint.sh postgres"`
+      - Führt eine Reihe von Befehlen aus, wenn der Container gestartet wird:
+         1. Aktualisiert die Paketliste (`apt-get update`).
+         2. Installiert den PostgreSQL Foreign Data Wrapper für OGR (`postgresql-16-ogr-fdw`) zur Verbindung mit anderen GIS-Datenquellen.
+         3. Installiert pgAgent für die Ausführung geplanter Aufgaben.
+         4. Startet den PostgreSQL-Dienst mit dem Standard-Entrypoint-Skript.
+
+## Volumes
+
+### `gisdata`
+
+* **Name:** `gisdata`
+   - Definiert ein benanntes Volume, um die PostgreSQL-Daten persistent zu speichern.
+
+## Verwendung
+
+1. Starte den Container mit `docker compose up -d`.
+2. WSL2 IP-Adresse herausfinden: `wsl hostname -I `.  
+3. IP-Adresse ersetzen  
+![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/6c4a64f2-6c66-4362-969e-d3f9ebcd0eb5)  
+4. Passwort eingeben(`gis_database_pw`)  
+![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/c028d54e-e641-4dbf-9b58-12399e804e46)  
 
 
-## ogr_fdw/pgadgent Installieren
 
-### Container
-**1. Container id abfragen:**
-```bash
-sudo docker ps -aqf "name=gis_database"
-```
-**2. Container Konsole betreten:**
-```bash
-docker exec -it .... sh
-```
-**3. ogr-fdw im Container installieren:**
-```bash
-apt-get update && apt-get install -y --no-install-recommends postgresql-16-ogr-fdw
-  
-apt-get update && apt-get install pgagent
-```
-
-### Datenbank
-Vorhandene Erweiterungen überprüfen:
+# Datenbank
+## Vorhandene Erweiterungen überprüfen:
 ```postgresql
 SELECT * FROM pg_extension;
 ```
-Erweiterungen in Datenbank installieren:
+## Erweiterungen in Datenbank installieren:
 ```postgresql
 CREATE EXTENSION pgagent;
 CREATE EXTENSION ogr_fdw;
 ```
 
-Neues Schema anlegen:
+## Neues Schema anlegen:
 ```postgresql
 CREATE SCHEMA daten;
 ```
-Daten Pipeline
+## Daten Pipeline
 ```mermaid
 flowchart TB
     A{{"dwd_wfs"}} -- Import Foreign Schema --> C("OBS_DEU_P1Y_SD")
@@ -112,6 +103,5 @@ flowchart TB
     D -- Datenaufbereitung ---> B2("brd_bundeslaender")
     A2 -- geom --- E[\"Räumliche Verknüpfung"/]
     B2 -- geom --- E
-
-    E --> n1["sonnenstunden_bundeslaender"]
+    E --> n1["brd_sonnenstunden_jahresmittel"]
 ```
