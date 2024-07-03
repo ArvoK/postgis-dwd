@@ -40,35 +40,32 @@ Die Docker Compose-Datei [docker-compose.yml](https://github.com/ArvoK/postgis-d
 
 ### `gis_database`
 
-* **Image:** `postgis/postgis:16-3.4`
+* **Image:** `postgis/postgis:16-3.4`  
    - Verwendet das offizielle PostGIS Docker-Image, das PostgreSQL mit PostGIS-Erweiterungen für räumliche Daten kombiniert.
    - Die Version `16-3.4` bezieht sich auf PostgreSQL 16 und PostGIS 3.4.
 
-* **Container Name:** `gis_database`
+* **Container Name:** `gis_database`  
    - Benennt den Container, um ihn leichter identifizieren zu können.
 
-* **Ports:**
-   - `5433:5432`
-      - Leitet Port 5433 auf dem Host-System zu Port 5432 im Container weiter.
-      - PostgreSQL läuft standardmäßig auf Port 5432.
+* **Ports:** `5433:5432`  
+   - Leitet Port 5433 auf dem Host-System zu Port 5432 im Container weiter.
+   - PostgreSQL läuft standardmäßig auf Port 5432.
 
-* **Environment:**
-   - `POSTGRES_PASSWORD: gis_database_pw`
-      - Setzt das Passwort für den PostgreSQL-Benutzer `postgres`.
-      - Ersetze `gis_database_pw` durch ein sicheres Passwort.
+* **Environment:** `POSTGRES_PASSWORD: gis_database_pw`  
+   - Setzt das Passwort für den PostgreSQL-Benutzer `postgres`.
+   - Ersetze `gis_database_pw` durch ein sicheres Passwort.
 
-* **Volumes:**
-   - `gisdata:/var/lib/postgresql/data`
-      - Speichert die PostgreSQL-Daten persistent im benannten Volume `gisdata`.
-      - Dadurch bleiben die Daten auch nach dem Stoppen des Containers erhalten.
+* **Volumes:** `gisdata:/var/lib/postgresql/data`  
+   - Speichert die PostgreSQL-Daten persistent im benannten Volume `gisdata`.
+   - Dadurch bleiben die Daten auch nach dem Stoppen des Containers erhalten.
 
-* **Command:**
-   - `bash -c "apt-get update && apt-get install -y --no-install-recommends postgresql-16-ogr-fdw && apt-get update && apt-get install -y pgagent && docker-entrypoint.sh postgres"`
-      - Führt eine Reihe von Befehlen aus, wenn der Container gestartet wird:
-         1. Aktualisiert die Paketliste (`apt-get update`).
-         2. Installiert den PostgreSQL Foreign Data Wrapper für OGR (`postgresql-16-ogr-fdw`) zur Verbindung mit anderen GIS-Datenquellen.
-         3. Installiert pgAgent für die Ausführung geplanter Aufgaben.
-         4. Startet den PostgreSQL-Dienst mit dem Standard-Entrypoint-Skript.
+* **Command:**  
+`bash -c "apt-get update && apt-get install -y --no-install-recommends postgresql-16-ogr-fdw && apt-get update && apt-get install -y pgagent && docker-entrypoint.sh postgres"`
+   - Führt eine Reihe von Befehlen aus, wenn der Container gestartet wird:
+      1. Aktualisiert die Paketliste (`apt-get update`).
+      2. Installiert den PostgreSQL Foreign Data Wrapper für OGR (`postgresql-16-ogr-fdw`) zur Verbindung mit anderen GIS-Datenquellen.
+      3. Installiert pgAgent für die Ausführung geplanter Aufgaben.
+      4. Startet den PostgreSQL-Dienst mit dem Standard-Entrypoint-Skript.
 
 ## Volumes
 
