@@ -80,7 +80,7 @@ Diese Docker Compose-Datei definiert ein PostGIS-Setup mit pgAgent für die Ausf
 
 
 # Datenbank
-##Query Tool starten:  
+## Query Tool starten:  
 ![image](https://github.com/ArvoK/postgis-dwd/assets/64811285/23acd1c1-0b90-4fb9-850f-0a49759e1496)
 
 ## Vorhandene Erweiterungen überprüfen:
