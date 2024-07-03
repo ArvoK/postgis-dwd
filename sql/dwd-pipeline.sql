@@ -1,5 +1,3 @@
--- 1. Schritt
-
 CREATE SERVER dwd_wfs
     FOREIGN DATA WRAPPER ogr_fdw
     OPTIONS (
