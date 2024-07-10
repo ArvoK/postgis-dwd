@@ -1,6 +1,6 @@
 ### Vorraussetzungen
 - Windows 10, Version 2004 und höher
-- [WSL2 aktivieren](https://learn.microsoft.com/de-de/windows/wsl/install) (WSL-Installationsbefehl ausführen)
+- [WSL2 aktivieren]([https://learn.microsoft.com/de-de/windows/wsl/install](https://www.youtube.com/watch?v=eId6K8d0v6o&) (WSL-Installationsbefehl ausführen)
 - [QGIS](https://www.qgis.org/de/site/)
 - [Docker Desktop (Windows)](https://www.docker.com/products/docker-desktop/)
 - [GitHub-Desktop](https://github.com/apps/desktop)
