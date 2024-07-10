@@ -6,6 +6,5 @@
 - [GitHub-Desktop](https://github.com/apps/desktop)
 - [VS-Code](https://code.visualstudio.com/) oder andere IDE
 - [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=de-de&gl=DE)
-
-### Nice to have
 - [pgAdmin(Windows)](https://www.pgadmin.org/)
+
