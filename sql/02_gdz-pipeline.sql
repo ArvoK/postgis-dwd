@@ -26,5 +26,9 @@ CREATE MATERIALIZED VIEW daten."brd_bundeslaender" AS
 
 
 --04
-CREATE UNIQUE INDEX idx_brd_bundeslaender_id
+CREATE UNIQUE INDEX brd_bundeslaender
   ON daten."brd_bundeslaender" (id);
+
+CREATE INDEX geom_idx
+ON daten."sonnenstunde-im-jahr-pro-bundesland"
+USING GIST (geom);
