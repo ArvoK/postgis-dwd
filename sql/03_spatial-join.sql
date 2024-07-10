@@ -22,6 +22,6 @@ CREATE MATERIALIZED VIEW daten."sonnenstunde-im-jahr-pro-bundesland" AS
 
 
 --02
-CREATE INDEX geom_idx
+CREATE INDEX sipob_geom_idx
   ON daten."sonnenstunde-im-jahr-pro-bundesland"
   USING GIST (geom);

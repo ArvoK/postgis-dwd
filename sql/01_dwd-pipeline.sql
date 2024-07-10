@@ -33,9 +33,9 @@ CREATE MATERIALIZED VIEW daten."dwd_sonnenstunden_jahresmittel" AS
 
 
 --05
-CREATE UNIQUE INDEX idx_dwd_sonnenstunden_jahresmittel_id
+CREATE UNIQUE INDEX dwd_sonnenstunden_idx
   ON daten."dwd_sonnenstunden_jahresmittel" (id);
 
-CREATE INDEX geom_idx
+CREATE INDEX dwd_sonnenstunden_geom_idx
 ON daten."dwd_sonnenstunden_jahresmittel"
 USING GIST (geom);

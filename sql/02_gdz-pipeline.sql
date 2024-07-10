@@ -10,7 +10,7 @@ CREATE SERVER gdz_wfs
 --02
 -- Link zu den GetCapabilities
 -- https://sgx.geodatenzentrum.de/wfs_vg250-ew?REQUEST=GetCapabilities&SERVICE=WFS
-IMPORT FOREIGN SCHEMA "vg250-ew_vg250_lan" FROM SERVER gdz_wfs INTO daten;
+IMPORT FOREIGN SCHEMA "vg250-ew:vg250_lan" FROM SERVER gdz_wfs INTO daten;
 
 
 --03
@@ -26,9 +26,9 @@ CREATE MATERIALIZED VIEW daten."brd_bundeslaender" AS
 
 
 --04
-CREATE UNIQUE INDEX brd_bundeslaender
+CREATE UNIQUE INDEX brd_bundeslaender_idx
   ON daten."brd_bundeslaender" (id);
 
-CREATE INDEX geom_idx
-ON daten."sonnenstunde-im-jahr-pro-bundesland"
+CREATE INDEX bundeslaender_geom_idx
+ON daten."brd_bundeslaender"
 USING GIST (geom);
