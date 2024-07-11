@@ -1,2 +1,3 @@
+Host: 
 User: postgres
-Password: 
+Password: gis_database_pw
