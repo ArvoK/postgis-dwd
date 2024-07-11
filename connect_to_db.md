@@ -1,5 +1,3 @@
-**Host:** 'wsl hostname -I'  
-**User:** postgres  
-**Password:** gis_database_pw  
-**Port:** 5433  
-**Database:** postgres
+| Host | User | Password | Port | Database |
+|---|---|---|---|---|
+| wsl hostname -I | postgres | gis_database_pw | 5433 | postgres |
